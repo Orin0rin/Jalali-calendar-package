@@ -13,17 +13,40 @@
 }
 
 .calendar-header {
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 1.5rem; /* Larger and more readable header */
-  color: #396594; /* Accent color */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #f0f0f0;
+  padding: 10px;
+  font-family: 'Tahoma', sans-serif;
+  border-bottom: 1px solid #ddd;
 }
+
+.calendar-header button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.calendar-header button:hover {
+  background-color: #0056b3;
+}
+
+.calendar-header .month-year {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+}
+
 
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* Create 7 equal-width columns */
   gap: 8px; /* Space between grid items */
-  justify-content: flex-end; 
 }
 
 .calendar-day {
