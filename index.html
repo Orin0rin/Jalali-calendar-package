@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendar Example</title>
+  <link rel="stylesheet" href="dist/calendar.css">  
+</head>
+<body>
+  <div id="my-calendar"></div>
+  <script src="dist/calendar.js"></script>
+  <script>
+    // Access the default export of the module
+    const CalendarClass = (Calendar && Calendar.default) || Calendar;
+
+    // Ensure CalendarClass is available and is a class
+    console.log('CalendarClass:', CalendarClass);
+
+    if (typeof CalendarClass === 'function') {
+      const calendar = new CalendarClass('#my-calendar');
+      calendar.initializeCalendar();
+    } else {
+      console.error('CalendarClass is not a constructor.');
+    }
+  </script>
+</body>
+</html>

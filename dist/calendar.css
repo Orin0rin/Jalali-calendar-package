@@ -1,0 +1,79 @@
+/*!********************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./src/calendar.css ***!
+  \********************************************************************/
+/* dist/calendar.css */
+
+.calendar-container {
+  direction: rtl; /* Right-to-left direction */
+  font-family: 'Arial', sans-serif; /* Cleaner, more modern font */
+  max-width: 500px; /* Set a max width to control the size of the calendar */
+  margin: 0 auto; /* Center the calendar horizontally */
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.calendar-header {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.5rem; /* Larger and more readable header */
+  color: #396594; /* Accent color */
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr); /* Create 7 equal-width columns */
+  gap: 8px; /* Space between grid items */
+  justify-content: flex-end; 
+}
+
+.calendar-day {
+  padding: 15px 10px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center; /* Center text in day cells */
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+}
+
+.calendar-day:hover {
+  background-color: #396594;
+  color: #fff;
+  transform: translateY(-3px); /* Subtle lift effect on hover */
+}
+
+.calendar-day.empty {
+  background-color: transparent;
+  border: none;
+  cursor: default;
+}
+
+/* Styling for the day headers (e.g., Sun, Mon) */
+.calendar-day-header {
+  font-weight: bold;
+  padding: 12px 0;
+  background-color: #e8e8e8;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .calendar-container {
+    max-width: 100%; /* Make the calendar responsive for smaller screens */
+  }
+
+  .calendar-day {
+    padding: 10px 5px; /* Adjust padding for smaller screens */
+  }
+
+  .calendar-header {
+    font-size: 1.2rem;
+  }
+}
+
