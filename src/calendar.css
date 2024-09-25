@@ -1,4 +1,4 @@
-/* dist/calendar.css */
+/* src/calendar.css */
 
 .calendar-container {
   direction: rtl; /* Right-to-left direction */
@@ -30,10 +30,12 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
 }
 
 .calendar-header button:hover {
   background-color: #0056b3;
+  transform: translateY(-2px); /* Subtle lift effect on hover */
 }
 
 .calendar-header .month-year {
@@ -42,11 +44,11 @@
   color: #333;
 }
 
-
 .calendar-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr); /* Create 7 equal-width columns */
   gap: 8px; /* Space between grid items */
+  margin-top: 10px; /* Space between header and days */
 }
 
 .calendar-day {
@@ -71,7 +73,17 @@
   cursor: default;
 }
 
-/* Styling for the day headers (e.g., Sun, Mon) */
+.calendar-day.current-day {
+  background-color: #ffdd57; /* Highlight for current day */
+  color: #333;
+  font-weight: bold;
+}
+
+.calendar-day.prev-month, .calendar-day.next-month {
+  color: #aaa;
+  background-color: #f0f0f0;
+}
+
 .calendar-day-header {
   font-weight: bold;
   padding: 12px 0;
@@ -94,5 +106,15 @@
 
   .calendar-header {
     font-size: 1.2rem;
+  }
+
+  .calendar-header button {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+
+  .calendar-day-header {
+    font-size: 0.9rem;
+    padding: 8px 0;
   }
 }
