@@ -6,7 +6,7 @@
 .calendar-container {
   direction: rtl; /* Right-to-left direction */
   font-family: 'Arial', sans-serif; /* Cleaner, more modern font */
-  max-width: 500px; /* Set a max width to control the size of the calendar */
+  max-width: 900px; /* Set a max width to control the size of the calendar */
   margin: 0 auto; /* Center the calendar horizontally */
   background-color: #fff;
   padding: 20px;

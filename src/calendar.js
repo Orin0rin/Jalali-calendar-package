@@ -49,9 +49,9 @@ export default class Calendar {
     monthYearDisplay.innerText = this.currentDate.format('jMMMM jYYYY'); // Display Jalali month and year
   
     // Append the buttons and display to the header
-    header.appendChild(prevButton);
-    header.appendChild(monthYearDisplay);
     header.appendChild(nextButton);
+    header.appendChild(monthYearDisplay);
+    header.appendChild(prevButton);
 
     return header;
   }
@@ -60,7 +60,7 @@ export default class Calendar {
     const daysContainer = document.createElement('div');
     daysContainer.classList.add('calendar-days');
 
-    const weekdays = ['ش', 'ی', 'د', 'س', 'چ', 'پ', 'ج'];
+    const weekdays = ['شنبه', 'یکشنبه', 'دوشنبه', 'سه‌شنبه', 'چهارشنبه', 'پنج‌شنبه', 'جمعه'];
     weekdays.forEach(day => {
         const dayElement = document.createElement('div');
         dayElement.classList.add('calendar-day-header');
@@ -70,48 +70,79 @@ export default class Calendar {
 
     // Get the first day of the current Jalali month
     const firstDayOfMonth = this.currentDate.clone().startOf('jMonth');
-    console.log('first:' , firstDayOfMonth.format('jYYYY,jMM,jDD'));
     const lastDayOfMonth = this.currentDate.clone().endOf('jMonth');
-    console.log('last:' , lastDayOfMonth.format('jYYYY,jMM,jDD'));
-    // Determine the weekday of the first day of the month
     let firstDayOfWeek = firstDayOfMonth.day();
     if (firstDayOfWeek < 6) {
-        firstDayOfWeek = firstDayOfWeek + 1;
+        firstDayOfWeek += 1;
     } else if (firstDayOfWeek === 6) {
         firstDayOfWeek = 0;
     }
 
-
-    // Create a 7x6 grid (42 cells)
     let dayCounter = 1;
     for (let i = 0; i < 42; i++) {
         const dayElement = document.createElement('div');
         dayElement.classList.add('calendar-day');
 
+        let dateInfo;
+
         if (i < firstDayOfWeek) {
             // Fill with previous month's days
-            const prevMonthDay = firstDayOfMonth.clone().subtract(firstDayOfWeek - i, 'days');
-            dayElement.innerText = prevMonthDay.format('jD');
+            dateInfo = firstDayOfMonth.clone().subtract(firstDayOfWeek - i, 'days');
+            dayElement.innerText = dateInfo.format('jD');
             dayElement.classList.add('prev-month');
         } else if (dayCounter <= lastDayOfMonth.format('jD')) {
             // Fill with current month's days
+            dateInfo = firstDayOfMonth.clone().add(dayCounter - 1, 'days');
             dayElement.innerText = dayCounter;
-            if (dayCounter === this.currentDate.format('jD')) {
+            if (dayCounter === parseInt(this.currentDate.format('jD'))) {
                 dayElement.classList.add('current-day'); // Highlight the current day
             }
+
+            // Add event listeners
+            this.addMouseActions(dayElement, dayCounter, dateInfo); // Attach event listeners
             dayCounter++;
         } else {
             // Fill with next month's days
-            const nextMonthDay = lastDayOfMonth.clone().add(i - firstDayOfWeek - lastDayOfMonth.format('jD') + 1, 'days');
-            dayElement.innerText = nextMonthDay.format('jD');
+            dateInfo = lastDayOfMonth.clone().add(i - firstDayOfWeek - lastDayOfMonth.format('jD') + 1, 'days');
+            dayElement.innerText = dateInfo.format('jD');
             dayElement.classList.add('next-month');
         }
 
+        // Ensure dateInfo is passed into the mouse actions
+        this.addMouseActions(dayElement, dayElement.innerText, dateInfo);
         daysContainer.appendChild(dayElement);
     }
 
     return daysContainer;
 }
+
+
+  addMouseActions(dayElement, day, dateInfo) {
+    // Mouse enter event
+    dayElement.addEventListener('mouseenter', (event) => {
+        console.log(`Mouse entered on day: ${day}, Full Date: ${dateInfo.format('jYYYY/jMM/jDD')}`);
+        dayElement.style.backgroundColor = '#d1e7ff'; // Highlight the cell on hover
+    });
+
+    // Mouse leave event
+    dayElement.addEventListener('mouseleave', (event) => {
+        console.log(`Mouse left on day: ${day}, Full Date: ${dateInfo.format('jYYYY/jMM/jDD')}`);
+        dayElement.style.backgroundColor = ''; // Reset background color on leave
+    });
+
+    // Left-click event
+    dayElement.addEventListener('click', (event) => {
+        console.log(`Clicked on day: ${day}, Full Date: ${dateInfo.format('jYYYY/jMM/jDD')}`);
+        dayElement.style.backgroundColor = '#ffdd57'; // Set background color on click
+    });
+
+    // Right-click event (context menu)
+    dayElement.addEventListener('contextmenu', (event) => {
+        event.preventDefault(); // Prevent default right-click behavior
+        console.log(`Right-clicked on day: ${day}, Full Date: ${dateInfo.format('jYYYY/jMM/jDD')}`);
+        dayElement.style.backgroundColor = '#ff6666'; // Set a different background color on right-click
+    });
+  }
 
   
 }
